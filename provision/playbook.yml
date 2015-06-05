@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+    - name: install apt packages
+      action: apt name={{item}} state=installed update-cache=yes cache_valid_time=3600
+      with_items:
+        - git
+        - curl
+        - nginx
