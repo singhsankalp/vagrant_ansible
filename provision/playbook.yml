@@ -1,9 +1,17 @@
 ---
-- hosts: all
-  tasks:
-    - name: install apt packages
-      action: apt name={{item}} state=installed update-cache=yes cache_valid_time=3600
-      with_items:
-        - git
-        - curl
-        - nginx
+- name: install redis master
+  hosts: master
+  sudo: yes
+  vars:
+    - redis_bind: 192.168.3.25
+  roles:
+    - { role: redis }
+
+- name: install redis slaves
+  hosts: slave
+  sudo: yes
+  vars:
+    - redis_slaveof: 192.168.3.25 6379
+    - redis_bind: 192.168.3.26
+  roles:
+    - { role: redis }

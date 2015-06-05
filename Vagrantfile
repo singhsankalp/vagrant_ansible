@@ -12,16 +12,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.inventory_path = "provision/ansible_hosts"
   end
 
-  config.vm.define "worker" do |worker|
+  config.vm.define "master" do |worker|
     worker.vm.box = "ubuntu/trusty64"
-    worker.vm.network :private_network, ip: "192.168.3.26"
-    worker.vm.hostname = "worker"
+    worker.vm.network :private_network, ip: "192.168.3.25"
+    worker.vm.hostname = "master"
   end
 
-  config.vm.define "web" do |web|
+  config.vm.define "slave" do |web|
     web.vm.box = "ubuntu/trusty64"
-    web.vm.network :private_network, ip: "192.168.3.25"
-    web.vm.hostname = "web"
+    web.vm.network :private_network, ip: "192.168.3.26"
+    web.vm.hostname = "slave"
   end
 
 end
